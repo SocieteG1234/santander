@@ -5,18 +5,29 @@ import { loginUser } from "../services/UserService";
 const AuthContext = createContext(null);
 
 export function AuthProvider({ children }) {
-  const [currentUser, setCurrentUser] = useState(null);
+  const [currentUser, setCurrentUser] = useState(() => {
+    // Au chargement, on récupère l'utilisateur sauvegardé
+    try {
+      const saved = localStorage.getItem("rgc_user");
+      return saved ? JSON.parse(saved) : null;
+    } catch {
+      return null;
+    }
+  });
 
   const login = (code, password) => {
     const result = loginUser(code, password);
     if (result.success) {
       setCurrentUser(result.user);
+      localStorage.setItem("rgc_user", JSON.stringify(result.user));
     }
     return result;
   };
 
   const logout = () => {
     setCurrentUser(null);
+    localStorage.removeItem("rgc_user");
+    sessionStorage.removeItem("rgc_page");
   };
 
   return (
