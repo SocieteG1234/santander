@@ -21,13 +21,7 @@ export default function VirementPage({ navigate }) {
           >
             <ArrowLeft size={22} className="text-gray-700" />
           </button>
-          {/* Logo — remplacer par <img src="/logo-santander.png" className="h-9" /> */}
-          <div className="flex items-center gap-2">
-            <div className="w-8 h-8 bg-red-600 rounded-full flex items-center justify-center">
-              <span className="text-white font-bold">S</span>
-            </div>
-            <span className="text-lg font-bold text-red-600">Santander</span>
-          </div>
+          <img src="images/L1.jpeg" alt="Santander" className="h-8 w-auto object-contain" />
         </div>
       </header>
 

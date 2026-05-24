@@ -46,13 +46,7 @@ export default function LoginPage({ navigate }) {
 
       {/* Header */}
       <div className="bg-white border-b border-gray-200 px-6 py-4 flex items-center justify-center">
-        {/* Remplacer par votre logo : <img src="/logo-santander.png" alt="Santander" className="h-10" /> */}
-        <div className="flex items-center gap-2">
-          <div className="w-10 h-10 bg-red-600 rounded-full flex items-center justify-center">
-            <span className="text-white font-bold text-xl">S</span>
-          </div>
-          <span className="text-2xl font-bold text-red-600">Santander</span>
-        </div>
+        <img src="images/L1.jpeg" alt="Santander" className="h-12 w-auto object-contain" />
       </div>
 
       {/* Contenu */}

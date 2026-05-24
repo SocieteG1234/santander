@@ -1,7 +1,7 @@
 // pages/DocumentsPage.jsx
 import React, { useState } from "react";
 import { useAuth } from "../context/AuthContext";
-import { ArrowLeft, FileText, Download, CheckCircle } from "lucide-react";
+import { ArrowLeft, Download, CheckCircle } from "lucide-react";
 import { BottomNav } from "./CartePage";
 
 export default function DocumentsPage({ navigate }) {
@@ -112,12 +112,7 @@ Document généré le ${today}
           <button onClick={() => navigate("dashboard")} className="w-9 h-9 flex items-center justify-center rounded-full hover:bg-gray-100 transition">
             <ArrowLeft size={22} className="text-gray-700" />
           </button>
-          <div className="flex items-center gap-2">
-            <div className="w-8 h-8 bg-red-600 rounded-full flex items-center justify-center">
-              <span className="text-white font-bold">S</span>
-            </div>
-            <span className="text-lg font-bold text-red-600">Santander</span>
-          </div>
+          <img src="images/L1.jpeg" alt="Santander" className="h-8 w-auto object-contain" />
         </div>
       </header>
 

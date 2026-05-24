@@ -1,10 +1,10 @@
 // services/UserService.js
 
 export const usersDB = {
-  "12345678": {
+  "07893516": {
     id: 1,
-    code: "12345678",
-    password: "123456",
+    code: "07893516",
+    password: "260826",
     nom: "Gema Guttierez Sanchez",
     email: "gema.guttierez@gmail.com",
     telephone: "+34 612 345 678",
