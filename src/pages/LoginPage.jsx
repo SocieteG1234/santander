@@ -45,8 +45,9 @@ export default function LoginPage({ navigate }) {
     <div className="min-h-screen bg-white flex flex-col">
 
       {/* Header */}
-      <div className="bg-white border-b border-gray-200 px-6 py-4 flex items-center justify-center">
+      <div className="bg-white border-b border-gray-200 px-6 py-4 flex items-center justify-center gap-3">
         <img src="images/L1.jpeg" alt="Santander" className="h-12 w-auto object-contain" />
+        <span className="text-2xl font-bold text-red-600">Banco Santander</span>
       </div>
 
       {/* Contenu */}
