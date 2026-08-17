@@ -143,7 +143,7 @@ export default function NotificationsPage({ navigate }) {
         </div>
 
         <div className="text-center text-xs text-slate-400 pt-2">
-          LIDION BANK — Interface de démonstration
+          LIDION BANK
         </div>
       </main>
 

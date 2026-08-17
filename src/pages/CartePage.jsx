@@ -220,7 +220,7 @@ export default function CartePage({ navigate }) {
 
         {/* Mention démo */}
         <p className="text-center text-xs text-slate-400">
-          LIDION BANK — Interface de démonstration
+          LIDION BANK
         </p>
 
       </main>
