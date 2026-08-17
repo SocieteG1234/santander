@@ -1,6 +1,12 @@
 // pages/NotificationsPage.jsx
 import React from "react";
-import { ArrowLeft, Lock, AlertTriangle, Info, Bell } from "lucide-react";
+import {
+  ArrowLeft,
+  Lock,
+  AlertTriangle,
+  Info,
+  Bell,
+} from "lucide-react";
 import { BottomNav } from "./CartePage";
 
 const notifications = [
@@ -8,7 +14,8 @@ const notifications = [
     id: 1,
     type: "danger",
     titre: "Compte bloqué",
-    message: "Votre compte a été temporairement bloqué pour des raisons de sécurité. Contactez votre conseiller.",
+    message:
+      "Votre compte a été temporairement bloqué pour des raisons de sécurité. Contactez votre conseiller.",
     date: "Aujourd'hui, 09:14",
     icon: Lock,
     lu: false,
@@ -17,7 +24,8 @@ const notifications = [
     id: 2,
     type: "warning",
     titre: "Carte bancaire bloquée",
-    message: "Votre carte Visa se terminant par 4298 est bloquée suite au blocage de votre compte.",
+    message:
+      "Votre carte Visa se terminant par 4298 est bloquée suite au blocage de votre compte.",
     date: "Aujourd'hui, 09:15",
     icon: AlertTriangle,
     lu: false,
@@ -26,7 +34,8 @@ const notifications = [
     id: 3,
     type: "info",
     titre: "Virement reçu",
-    message: "Vous avez reçu un virement de 924 607 £ sur votre compte.",
+    message:
+      "Vous avez reçu un virement de 924 607 £ sur votre compte.",
     date: "20 mai 2026",
     icon: Info,
     lu: true,
@@ -35,7 +44,8 @@ const notifications = [
     id: 4,
     type: "info",
     titre: "Connexion détectée",
-    message: "Une nouvelle connexion a été détectée sur votre compte depuis un appareil inconnu.",
+    message:
+      "Une nouvelle connexion a été détectée sur votre compte depuis un appareil inconnu.",
     date: "19 mai 2026",
     icon: Bell,
     lu: true,
@@ -56,48 +66,91 @@ const iconStyles = {
 
 export default function NotificationsPage({ navigate }) {
   return (
-    <div className="min-h-screen bg-gray-50 pb-24">
-      <header className="bg-white border-b border-gray-200 px-4 py-3 sticky top-0 z-50">
+    <div className="min-h-screen bg-slate-50 pb-24">
+      <header className="bg-white border-b border-slate-200 px-4 py-3 sticky top-0 z-50">
         <div className="max-w-lg mx-auto flex items-center gap-4">
-          <button onClick={() => navigate("dashboard")} className="w-9 h-9 flex items-center justify-center rounded-full hover:bg-gray-100 transition">
-            <ArrowLeft size={22} className="text-gray-700" />
+          <button
+            onClick={() => navigate("dashboard")}
+            className="w-9 h-9 flex items-center justify-center rounded-full hover:bg-slate-100 transition"
+          >
+            <ArrowLeft size={22} className="text-slate-700" />
           </button>
-          <img src="images/L1.jpeg" alt="Santander" className="h-8 w-auto object-contain" />
+
+          <img
+            src="images/L1.jpeg"
+            alt="LIDION BANK"
+            className="h-8 w-auto object-contain"
+          />
         </div>
       </header>
 
       <main className="max-w-lg mx-auto w-full px-4 py-6 space-y-4">
         <div className="flex items-center justify-between">
-          <h1 className="text-xl font-bold text-gray-900">Notifications</h1>
-          <span className="bg-red-600 text-white text-xs font-bold px-2 py-1 rounded-full">
-            {notifications.filter(n => !n.lu).length} nouvelles
+          <h1 className="text-xl font-bold text-slate-900">
+            Notifications
+          </h1>
+
+          <span className="bg-blue-900 text-white text-xs font-bold px-2 py-1 rounded-full">
+            {notifications.filter((n) => !n.lu).length} nouvelles
           </span>
         </div>
 
         <div className="space-y-3">
           {notifications.map((notif) => {
             const Icon = notif.icon;
+
             return (
-              <div key={notif.id}
-                className={`border rounded-2xl p-4 flex gap-3 ${typeStyles[notif.type]} ${!notif.lu ? "shadow-sm" : "opacity-70"}`}>
-                <div className={`w-10 h-10 rounded-full flex items-center justify-center shrink-0 ${iconStyles[notif.type]}`}>
+              <div
+                key={notif.id}
+                className={`border rounded-2xl p-4 flex gap-3 ${
+                  typeStyles[notif.type]
+                } ${
+                  !notif.lu
+                    ? "shadow-sm"
+                    : "opacity-70"
+                }`}
+              >
+                <div
+                  className={`w-10 h-10 rounded-full flex items-center justify-center shrink-0 ${
+                    iconStyles[notif.type]
+                  }`}
+                >
                   <Icon size={18} />
                 </div>
+
                 <div className="flex-1">
                   <div className="flex items-center justify-between mb-1">
-                    <p className="font-bold text-sm">{notif.titre}</p>
-                    {!notif.lu && <span className="w-2 h-2 bg-red-600 rounded-full" />}
+                    <p className="font-bold text-sm">
+                      {notif.titre}
+                    </p>
+
+                    {!notif.lu && (
+                      <span className="w-2 h-2 bg-blue-700 rounded-full" />
+                    )}
                   </div>
-                  <p className="text-xs leading-relaxed mb-1">{notif.message}</p>
-                  <p className="text-xs opacity-60">{notif.date}</p>
+
+                  <p className="text-xs leading-relaxed mb-1">
+                    {notif.message}
+                  </p>
+
+                  <p className="text-xs opacity-60">
+                    {notif.date}
+                  </p>
                 </div>
               </div>
             );
           })}
         </div>
+
+        <div className="text-center text-xs text-slate-400 pt-2">
+          LIDION BANK — Interface de démonstration
+        </div>
       </main>
 
-      <BottomNav navigate={navigate} active="notifications" />
+      <BottomNav
+        navigate={navigate}
+        active="notifications"
+      />
     </div>
   );
 }
