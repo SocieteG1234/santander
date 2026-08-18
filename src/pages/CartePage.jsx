@@ -210,7 +210,7 @@ export default function CartePage({ navigate }) {
             </p>
 
             <p className="text-red-600 text-xs mt-1">
-              Votre carte est bloquée dans cette démonstration.
+              Votre carte est bloquée.
               Contactez votre conseiller LIDION BANK pour obtenir
               davantage d'informations.
             </p>

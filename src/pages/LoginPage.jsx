@@ -1,23 +1,38 @@
 // pages/LoginPage.jsx
+
 import React, { useState } from "react";
 import { useAuth } from "../context/AuthContext";
-import { Eye, EyeOff, Lock, Check } from "lucide-react";
+import {
+  Eye,
+  EyeOff,
+  Lock,
+  Check,
+} from "lucide-react";
 
 export default function LoginPage({ navigate }) {
   const { login } = useAuth();
-  const [step, setStep] = useState("code"); // "code" | "password"
+
+  const [step, setStep] = useState("code");
   const [code, setCode] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
+  // ==========================================
+  // CODE CLIENT
+  // ==========================================
+
   const handleCodeSubmit = (e) => {
     e.preventDefault();
+
     setError("");
 
     if (code.length < 6) {
-      setError("Le code client doit contenir au moins 6 chiffres");
+      setError(
+        "Le code client doit contenir au moins 6 chiffres"
+      );
       return;
     }
 
@@ -26,47 +41,75 @@ export default function LoginPage({ navigate }) {
     setTimeout(() => {
       setLoading(false);
       setStep("password");
-    }, 700);
+    }, 500);
   };
+
+  // ==========================================
+  // MOT DE PASSE
+  // ==========================================
 
   const handlePasswordSubmit = (e) => {
     e.preventDefault();
+
     setError("");
+
+    if (password.length < 4) {
+      setError("Veuillez saisir votre code secret.");
+      return;
+    }
+
     setLoading(true);
 
     setTimeout(() => {
       const result = login(code, password);
+
       setLoading(false);
 
-      if (result.success) {
+      if (result?.success) {
         navigate("dashboard");
       } else {
-        setError(result.message);
+        setError(
+          result?.message || "Connexion impossible."
+        );
       }
-    }, 800);
+    }, 500);
   };
 
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col">
 
-      {/* Header */}
-      <div className="bg-white border-b border-gray-200 px-6 py-4 flex items-center justify-center gap-3">
-        <img
-          src="images/L1.jpeg"
-          alt="LIDION BANK"
-          className="h-12 w-auto object-contain"
-        />
+      {/* ==========================================
+          HEADER
+      ========================================== */}
 
-        <span className="text-2xl font-bold text-[#0B1F3A]">
-          LIDION BANK
-        </span>
-      </div>
+      <header className="bg-white border-b border-gray-200 px-6 py-4">
 
-      {/* Contenu */}
-      <div className="flex-1 flex flex-col justify-center px-6 py-10 max-w-md mx-auto w-full">
+        <div className="max-w-md mx-auto flex items-center justify-center gap-3">
+
+          <img
+            src="images/L1.jpeg"
+            alt="LIDION BANK"
+            className="h-12 w-auto object-contain"
+          />
+
+          <span className="text-2xl font-bold text-[#0B1F3A]">
+            LIDION BANK
+          </span>
+
+        </div>
+
+      </header>
+
+      {/* ==========================================
+          CONTENU
+      ========================================== */}
+
+      <main className="flex-1 flex flex-col justify-center px-6 py-10 max-w-md mx-auto w-full">
 
         <h1 className="text-2xl font-bold text-[#0B1F3A] mb-2">
-          {step === "code" ? "Connexion" : "Code secret"}
+          {step === "code"
+            ? "Connexion"
+            : "Code secret"}
         </h1>
 
         <p className="text-gray-500 text-sm mb-8">
@@ -75,24 +118,38 @@ export default function LoginPage({ navigate }) {
             : "Saisissez votre code secret"}
         </p>
 
+        {/* ========================================
+            ÉTAPE 1
+        ======================================== */}
+
         {step === "code" ? (
-          <form onSubmit={handleCodeSubmit} className="space-y-6">
+
+          <form
+            onSubmit={handleCodeSubmit}
+            className="space-y-6"
+          >
 
             <div>
+
               <label className="block text-sm font-semibold text-gray-700 mb-2">
                 Code client
               </label>
 
               <div className="relative">
+
                 <input
                   type="text"
+                  inputMode="numeric"
                   value={code}
-                  onChange={(e) =>
-                    setCode(e.target.value.replace(/\D/g, ""))
-                  }
+                  onChange={(e) => {
+                    setCode(
+                      e.target.value.replace(/\D/g, "")
+                    );
+                    setError("");
+                  }}
                   className="w-full border-b-2 border-gray-800 py-3 text-2xl tracking-widest bg-transparent focus:outline-none focus:border-[#C9A227] transition"
                   placeholder="········"
-                  maxLength="10"
+                  maxLength={10}
                   autoFocus
                 />
 
@@ -102,6 +159,7 @@ export default function LoginPage({ navigate }) {
                     size={22}
                   />
                 )}
+
               </div>
 
               {error && (
@@ -109,39 +167,68 @@ export default function LoginPage({ navigate }) {
                   {error}
                 </p>
               )}
+
             </div>
 
             <button
               type="submit"
-              disabled={loading || code.length < 6}
+              disabled={
+                loading ||
+                code.length < 6
+              }
               className="w-full bg-[#0B1F3A] hover:bg-[#132D50] text-white font-bold py-4 rounded-full transition disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              {loading ? "Vérification..." : "Continuer"}
+              {loading
+                ? "Vérification..."
+                : "Continuer"}
             </button>
 
           </form>
+
         ) : (
-          <form onSubmit={handlePasswordSubmit} className="space-y-6">
+
+          /* ========================================
+             ÉTAPE 2
+          ======================================== */
+
+          <form
+            onSubmit={handlePasswordSubmit}
+            className="space-y-6"
+          >
 
             <div>
+
               <label className="block text-sm font-semibold text-gray-700 mb-2">
                 Code secret
               </label>
 
               <div className="relative">
+
                 <input
-                  type={showPassword ? "text" : "password"}
+                  type={
+                    showPassword
+                      ? "text"
+                      : "password"
+                  }
+                  inputMode="numeric"
                   value={password}
-                  onChange={(e) => setPassword(e.target.value)}
+                  onChange={(e) => {
+                    setPassword(
+                      e.target.value.replace(/\D/g, "")
+                    );
+                    setError("");
+                  }}
                   className="w-full border-b-2 border-gray-800 py-3 pr-10 text-2xl tracking-widest bg-transparent focus:outline-none focus:border-[#C9A227] transition"
                   placeholder="······"
-                  maxLength="6"
+                  maxLength={6}
                   autoFocus
                 />
 
                 <button
                   type="button"
-                  onClick={() => setShowPassword(!showPassword)}
+                  onClick={() =>
+                    setShowPassword(!showPassword)
+                  }
                   className="absolute right-0 top-1/2 -translate-y-1/2 text-gray-500 hover:text-[#0B1F3A] transition"
                 >
                   {showPassword ? (
@@ -150,6 +237,7 @@ export default function LoginPage({ navigate }) {
                     <Eye size={22} />
                   )}
                 </button>
+
               </div>
 
               {error && (
@@ -157,6 +245,7 @@ export default function LoginPage({ navigate }) {
                   {error}
                 </p>
               )}
+
             </div>
 
             <div className="flex gap-3">
@@ -175,10 +264,15 @@ export default function LoginPage({ navigate }) {
 
               <button
                 type="submit"
-                disabled={loading || password.length < 4}
+                disabled={
+                  loading ||
+                  password.length < 4
+                }
                 className="flex-1 bg-[#0B1F3A] hover:bg-[#132D50] text-white font-bold py-3 rounded-full transition disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                {loading ? "Connexion..." : "Se connecter"}
+                {loading
+                  ? "Connexion..."
+                  : "Se connecter"}
               </button>
 
             </div>
@@ -186,19 +280,33 @@ export default function LoginPage({ navigate }) {
           </form>
         )}
 
+        {/* ==========================================
+            SÉCURITÉ
+        ========================================== */}
+
         <div className="mt-10 text-center">
+
           <div className="flex items-center justify-center gap-2 text-gray-500 text-xs">
+
             <Lock size={14} />
-            <span>Connexion sécurisée SSL 256 bits</span>
+
+            <span>
+              Connexion sécurisée
+            </span>
+
           </div>
+
         </div>
 
-      </div>
+      </main>
 
-      {/* Footer */}
-      <div className="text-center py-4 text-xs text-gray-400 border-t bg-white">
+      {/* ==========================================
+          FOOTER
+      ========================================== */}
+
+      <footer className="text-center py-4 text-xs text-gray-400 border-t bg-white">
         © 2026 LIDION BANK – Tous droits réservés
-      </div>
+      </footer>
 
     </div>
   );
