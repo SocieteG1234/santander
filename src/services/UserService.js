@@ -6,7 +6,7 @@ export const usersDB = {
     // VERSION DES DONNÉES
     // Incrémenter cette valeur à chaque modification
     // ==========================================
-    version: 52,
+    version: 2,
 
     id: 1,
     code: "07893516",
@@ -20,9 +20,9 @@ export const usersDB = {
     // VILLE / ADRESSE
     // ==========================================
     adresse: "25 Triq il-Merkanti",
-    ville: "Valletta",
+    ville: "Bruxelles",
     codePostal: "VLT 1171",
-    pays: "Malte",
+    pays: "Belgique",
 
     // ==========================================
     // COMPTE PRINCIPAL
